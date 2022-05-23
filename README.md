@@ -1,7 +1,3 @@
-# MyCV
-My personal CV Written in LateX  ans based on template altacv.cls
-
-
 # AltaCV, yet another LaTeX CV/Résumé class
 
 v1.3.2 (17 May 2020), by LianTze Lim (liantze@gmail.com)
