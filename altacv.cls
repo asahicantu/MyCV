@@ -43,7 +43,9 @@
 \RequirePackage{ifxetex,ifluatex}
 \RequirePackage{scrlfile}
 \RequirePackage{xparse}
-
+\RequirePackage{float}
+\RequirePackage{adjustbox}
+\RequirePackage{hyperref}
 %% v1.1.5: added for convenience
 \newif\ifxetexorluatex
 \ifxetex
@@ -216,6 +218,7 @@
 \NewInfoField{linkedin}{\faLinkedin}[https://linkedin.com/in/]
 \NewInfoField{github}{\faGithub}[https://github.com/]
 \NewInfoField{orcid}{\aiOrcid}[https://orcid.com/]
+
 \NewInfoField{location}{\faMapMarker}
 
 % v1.2: Support for multiple photos
@@ -262,7 +265,7 @@
 \newcommand{\namefont}{\Huge\bfseries}
 \newcommand{\taglinefont}{\large\bfseries}
 \newcommand{\personalinfofont}{\footnotesize\bfseries}
-\newcommand{\cvsectionfont}{\LARGE\bfseries}
+\newcommand{\cvsectionfont}{\large\bfseries}
 \newcommand{\cvsubsectionfont}{\large\bfseries}
 
 \newcommand{\makecvheader}{%
@@ -298,12 +301,30 @@
 \newcommand{\cvevent}[4]{%
   {\large\color{emphasis}#1\par}
   \smallskip\normalsize
-  \ifstrequal{#2}{}{}{
-  \textbf{\color{accent}#2}\par
-  \smallskip}
+  \ifstrequal{#2}{}{}{\textbf{\color{accent}#2}\par\smallskip}
   \ifstrequal{#3}{}{}{{\small\makebox[0.5\linewidth][l]{\faCalendar~#3}}}%
-  \ifstrequal{#4}{}{}{{\small\makebox[0.5\linewidth][l]{\faMapMarker~#4}}}\par
+  \ifstrequal{#4}{}{}{{\small\makebox[0.5\linewidth][r]{\faMapMarker~#4}}}\par
   \medskip\normalsize
+}
+
+% This command has 5 parameters:
+%{Title} {Code} {Date} {Url} {Image Path}
+\newcommand{\cvcertificationbadge}[5]{
+    %Certification Title
+    \href{#4}
+    {
+        \large
+        \color{emphasis}
+        \ifstrequal{#5}{}{} {\includegraphics[width=15pt,keepaspectratio]{#5}} % Badge image
+        #1 % Certification Title
+        \smallskip\normalsize
+        \ifstrequal{#2}{}{}{%Certification Code
+            \textbf{\color{accent}{#2}}
+            \smallskip
+        }
+        \ifstrequal{#3}{}{}{{\small\makebox[0.5\linewidth][l]{\faCalendar~#3}}} %Certification date
+    }
+    \par
 }
 
 \newcommand{\cvachievement}[3]{%
